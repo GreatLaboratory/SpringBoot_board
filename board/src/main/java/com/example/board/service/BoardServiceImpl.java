@@ -19,5 +19,28 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDto> selectBoardList() throws Exception {
 		return boardMapper.selectBoardList();
 	}
+
+	@Override
+	public void insertBoard(BoardDto boardDto) throws Exception {
+		boardMapper.insertBoard(boardDto);
+	}
+
+	@Override
+	public BoardDto selectBoardDetail(int boardIdx) throws Exception {
+		// 선택된 게시물보여주기와 선택된 게시물의 조회수 올려주기 이렇게 두 가지 기능을 수행하기 위함
+		boardMapper.updateHitCount(boardIdx);
+		return boardMapper.selectBoardDetail(boardIdx);
+	}
+
+	@Override
+	public void updateBoard(BoardDto boardDto) throws Exception {
+		boardMapper.updateBoard(boardDto);
+	}
+
+	@Override
+	public void deleteBoard(int boardIdx) throws Exception {
+		boardMapper.deleteBoard(boardIdx);
+	}
+	
 	
 }

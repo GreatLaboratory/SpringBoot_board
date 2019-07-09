@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.board.dto.BoardDto;
@@ -26,5 +27,38 @@ public class BoardController {
 		// 실행된 비즈니스 로직의 결과값을 뷰에 list라는 이름으로 저장, 뷰에서 list라는 이름으로 조회결과를 사용가능
 		
 		return mv;
+	}
+	
+	@RequestMapping(path = "/board/openBoardWrite.do")
+	public String openBoardWrite() throws Exception{
+		return "/board/boardWrite";
+	}
+	
+	@RequestMapping(path = "/board/insertBoard.do")
+	public String insertBoard(BoardDto boardDto) throws Exception {
+		boardService.insertBoard(boardDto);
+		return "redirect:/board/openBoardList.do";
+		// 게시물이 등록된 후 보여줘야하니까 /board/boardList가 아닌 위의 주소로 가줘야함.
+	}
+	
+	@RequestMapping(path="/board/openBoardDetail.do")
+	public ModelAndView openBoardDetail(@RequestParam int boardIdx) throws Exception {
+		ModelAndView mv = new ModelAndView("/board/boardDetail");
+		
+		BoardDto boardDto = boardService.selectBoardDetail(boardIdx);
+		mv.addObject("board", boardDto);
+		return mv;
+	}
+	
+	@RequestMapping(path="board/updateBoard.do")
+	public String updateBoard(BoardDto boardDto) throws Exception {
+		boardService.updateBoard(boardDto);
+		return "redirect:/board/openBoardList.do";
+	}
+	
+	@RequestMapping(path = "board/deleteBoard.do")
+	public String deleteBoard(int boardIdx) throws Exception {
+		boardService.deleteBoard(boardIdx);
+		return "redirect:/board/openBoardList.do";
 	}
 }
