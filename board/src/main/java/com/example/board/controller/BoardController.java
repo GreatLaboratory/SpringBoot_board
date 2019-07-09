@@ -2,6 +2,8 @@ package com.example.board.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +15,18 @@ import com.example.board.service.BoardService;
 
 @Controller
 public class BoardController {
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
+	
 	@Autowired
 	private BoardService boardService;
 	
 	@RequestMapping(path="/board/openBoardList.do")
 	// /board/openBoardList.do 이건 클라이언트가 호출하는 주소인데 이것과 수행할 아래의 메소드를 연결시킨다.
 	public ModelAndView openBoardList()throws Exception {
+		log.debug("openBoardList");
+		// debug 레벨의 로그를 출력
+		
 		ModelAndView mv = new ModelAndView("/board/boardList");
 		//호출된 요청의 결과를 보여줄 뷰를 위와 같이 /board/boardList로 지정한다. -> templates폴더 아래에 있는 board/boardList.html을 의미
 		
