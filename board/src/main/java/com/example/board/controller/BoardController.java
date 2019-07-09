@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.board.dto.BoardDto;
@@ -43,8 +44,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping(path = "/board/insertBoard.do")
-	public String insertBoard(BoardDto boardDto) throws Exception {
-		boardService.insertBoard(boardDto);
+	public String insertBoard(BoardDto boardDto, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
+		boardService.insertBoard(boardDto, multipartHttpServletRequest);
 		return "redirect:/board/openBoardList.do";
 		// 게시물이 등록된 후 보여줘야하니까 /board/boardList가 아닌 위의 주소로 가줘야함.
 	}
