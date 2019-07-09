@@ -21,7 +21,7 @@ public class DBConfig {
 	
 	@Autowired
 	private ApplicationContext applicationContext;
-	
+	 
 	@Bean
 	@ConfigurationProperties(prefix="spring.datasource.hikari")
 	// application.properties의 설정 중 히카리에 관한 설정 가져오기

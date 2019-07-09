@@ -27,8 +27,11 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDto selectBoardDetail(int boardIdx) throws Exception {
+		
 		// 선택된 게시물보여주기와 선택된 게시물의 조회수 올려주기 이렇게 두 가지 기능을 수행하기 위함
 		boardMapper.updateHitCount(boardIdx);
+		// 트랜젝션 성능검사 고의 오류
+		//int i = 10 / 0;
 		return boardMapper.selectBoardDetail(boardIdx);
 	}
 
