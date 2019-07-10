@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BoardController {
 //	private Logger log = LoggerFactory.getLogger(this.getClass());
-
 	
 	@Autowired
 	private BoardService boardService;
