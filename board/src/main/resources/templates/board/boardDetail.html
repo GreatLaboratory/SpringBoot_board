@@ -46,6 +46,10 @@
 			<!-- 기존 화면에서 글을 수정하거나 삭제할 때 꼭 필요한 글번호(boardIdx)를 input에 저장시켜 hidden으로 숨긴 채 데이터가 전송할 때 같이 보내준다. -->
 		</form>
 		
+		<div class="file_list">
+			<a th:each="list : ${board.fileList}" th:text="|${list.originalFileName} (${list.fileSize} kb)|"></a>
+		</div>
+		
 		<a href="#this" id="list" class="btn">목록으로</a>
 		<a href="#this" id="edit" class="btn">수정하기</a>
 		<a href="#this" id="delete" class="btn">삭제하기</a>

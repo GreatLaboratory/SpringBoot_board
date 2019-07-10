@@ -23,6 +23,7 @@ public class LoggerAspect {
 	public Object logPrint(ProceedingJoinPoint joinPoint) throws Throwable {
 		String type = "";
 		String name = joinPoint.getSignature().getDeclaringTypeName();
+		// name = com.example.board.service.BoardServiceImpl
 		
 		if(name.indexOf("Controller") > -1) {
 			type = "Controller  \t:  ";

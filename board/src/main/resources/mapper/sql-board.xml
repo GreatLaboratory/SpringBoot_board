@@ -20,6 +20,7 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="com.example.board.dto.BoardDto" useGeneratedKeys="true" keyProperty="boardIdx">
+	<!-- usegeneratedkeys와 keyproperty를 통해 새롭게 1이 증가된 boardIdx가 dto에 저장되어서 리턴됨. 아래 insertBoardFileList는 boardIdx를 여기서 받아와서 쓰는거임 -->
 		<![CDATA[
 			INSERT INTO board
 			(
@@ -38,6 +39,33 @@
 		]]>
 	</insert>	
 	
+	<insert id="insertBoardFileList" parameterType="com.example.board.dto.BoardFileDto">
+		<![CDATA[
+			INSERT INTO file
+			(
+				board_idx,
+				original_file_name,
+				stored_file_path,
+				file_size,
+				creator_id,
+				created_datetime
+			)
+			VALUES
+		]]>
+		<foreach collection="list" item="item" separator=",">
+		<!-- 이건 마이바티스의 foreach구문이다. collection은 전달받은 인자(여기선 boardfiledto)이고 list형식으로 데이터를 사용할거란 의미 -->
+		<!-- item속성은 전달받은 인자의 별칭이다. separator는 foreach문을 통해 여러 행을 삽입할거니까 행간의 구분을 위해 쓰는 것이다. -->
+			(
+				#{item.boardIdx},
+				#{item.originalFileName},
+				#{item.storedFilePath},
+				#{item.fileSize},
+				'admin',
+				NOW()
+			)
+		</foreach>
+	</insert>
+	
 	<select id="selectBoardDetail" parameterType="int" resultType="com.example.board.dto.BoardDto">
 		<![CDATA[
 			SELECT
@@ -49,6 +77,21 @@
 				creator_id
 			FROM
 				board
+			WHERE
+				board_idx = #{boardIdx}
+				AND deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<select id="selectBoardFileList" parameterType="int" resultType="com.example.board.dto.BoardFileDto">
+		<![CDATA[
+			SELECT
+				idx,
+				board_idx,
+				original_file_name,
+				ROUND(file_size / 1024) AS file_size
+			FROM
+				file
 			WHERE
 				board_idx = #{boardIdx}
 				AND deleted_yn = 'N'
