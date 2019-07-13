@@ -21,3 +21,5 @@ public class SwaggerConfiguration {
 		// paths에선 특정 경로없이 전부 any()로 모든 url을 선택함
 	}
 }
+
+// localhost:8080/swagger-ui.html

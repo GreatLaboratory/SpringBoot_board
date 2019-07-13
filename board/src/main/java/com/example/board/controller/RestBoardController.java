@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,7 +23,7 @@ public class RestBoardController {
 	private BoardService boardService;
 	
 	// 게시물 목록 조회
-	@RequestMapping(value="/board", method=RequestMethod.GET)
+	@GetMapping("/board")
 	public ModelAndView openBoardList() throws Exception {
 		ModelAndView mv = new ModelAndView("/board/restBoardList");
 		List<BoardDto> list = boardService.selectBoardList();
@@ -29,13 +33,13 @@ public class RestBoardController {
 	}
 	
 	// 게시물 작성 화면 호출
-	@RequestMapping(value="/board/write", method=RequestMethod.GET)
+	@GetMapping("/board/write")
 	public String openBoardWrite() {
 		return "/board/restBoardWrite";
 	}
 	
 	// 게시물 작성
-	@RequestMapping(value="/board/write", method=RequestMethod.POST)
+	@PostMapping("/board/write")
 	public String insertBoard(BoardDto boardDto, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
 		boardService.insertBoard(boardDto, multipartHttpServletRequest);
 		
@@ -43,7 +47,7 @@ public class RestBoardController {
 	}
 	
 	// 게시물 상세 화면
-	@RequestMapping(value="/board/{boardIdx}", method=RequestMethod.GET)
+	@GetMapping("/board/{boardIdx}")
 	public ModelAndView openBoardDetail(@PathVariable("boardIdx") int boardIdx) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/restBoardDetail");
 		BoardDto boardDto = boardService.selectBoardDetail(boardIdx);
@@ -53,7 +57,7 @@ public class RestBoardController {
 	}
 	
 	// 게시물 수정
-	@RequestMapping(value="/board/{boardIdx}", method=RequestMethod.PUT)
+	@PutMapping("/board/{boardIdx}")
 	public String updateBoard(BoardDto boardDto) throws Exception {
 		boardService.updateBoard(boardDto);
 		
@@ -61,7 +65,7 @@ public class RestBoardController {
 	}
 	
 	// 게시물 삭제
-	@RequestMapping(value="/board/{boardIdx}", method=RequestMethod.DELETE)	
+	@DeleteMapping("/board/{boardIdx}")
 	public String deleteBoard(@PathVariable("boardIdx") int boardIdx) throws Exception{
 		boardService.deleteBoard(boardIdx);
 		

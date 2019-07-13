@@ -7,15 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication(exclude= {MultipartAutoConfiguration.class})
-public class BoardApplication extends SpringBootServletInitializer{
-
-	
-	
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		// TODO Auto-generated method stub
-		return builder.sources(BoardApplication.class);
-	}
+public class BoardApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BoardApplication.class, args);
