@@ -1,5 +1,7 @@
 package com.example.board.config;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -63,5 +65,16 @@ public class DBConfig {
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
+	//------------------------------------------------------------------------------------------------------
+	
+	@ConfigurationProperties(prefix="spring.jpa")
+	public Properties hibernateConfig() {
+		return new Properties();
+	}
+	
+	
+	
+	
+	
 	
 }
